@@ -24,7 +24,6 @@ namespace CodeBlogFitness.CMD
             {
                 Console.WriteLine("Введите пол");
                 var gender = Console.ReadLine();
-                //мес/день/год
 
                 DateTime birthDate;
 
@@ -61,7 +60,7 @@ namespace CodeBlogFitness.CMD
                 Console.WriteLine($"Введите {name}");
                 if (double.TryParse(Console.ReadLine(), out double value))
                     return value;
-                else Console.WriteLine($"неверный формат {name}");
+                else Console.WriteLine($"неверный формат {name}а");
             }
         }
     }
