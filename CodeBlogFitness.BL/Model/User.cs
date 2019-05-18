@@ -20,11 +20,11 @@ namespace CodeBlogFitness.BL.Model
         /// <summary>
         /// Пол.
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
         /// <summary>
         /// День рождения.
         /// </summary>
-        public DateTime BirthDate { get; }
+        public DateTime BirthDate { get; set; }
         /// <summary>
         /// Вес.
         /// </summary>
@@ -33,6 +33,14 @@ namespace CodeBlogFitness.BL.Model
         /// Рост.
         /// </summary>
         public double Height { get; set; }
+
+        public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
+        //        // Save today's date.
+        //        var today = DateTime.Today;
+        //        // Calculate the age.
+        //        var age = today.Year - birthdate.Year;
+        //        // Go back to the year the person was born in case of a leap year
+        //        if (birthdate.Date > today.AddYears(-age)) age--;
         #endregion
 
         /// <summary>
@@ -65,14 +73,24 @@ namespace CodeBlogFitness.BL.Model
             }
             #endregion
             Name = name;
+            Gender = gender;
             BirthDate = birthDate;
             Weight = weight;
             Height = height;
         }
 
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+            Name = name;
+        }
+
         public override string ToString()
         {
-            return Name;
+            return Name + " "+ Age;
         }
     }
 }
