@@ -51,6 +51,11 @@ namespace CodeBlogFitness.CMD
                 {
                     Console.WriteLine($"\t{item.Key} - {item.Value}");
                 }
+                Console.WriteLine();
+                foreach (var item in eatingController.Foods)
+                {
+                    Console.WriteLine($"{item.Name} - {item.Calorie} - {item.Fats}");
+                }
             }
         }
 

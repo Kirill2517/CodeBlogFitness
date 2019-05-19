@@ -10,6 +10,11 @@ namespace CodeBlogFitness.BL.Controller
 {
     abstract public class ControllerBase
     {
+        /// <summary>
+        /// Записываем в файл.
+        /// </summary>
+        /// <param name="FileName">Имя файла.</param>
+        /// <param name="item">То что нужно записать.</param>
         protected void Save(string FileName, object item)
         {
             var formatter = new BinaryFormatter();
@@ -19,7 +24,12 @@ namespace CodeBlogFitness.BL.Controller
                 formatter.Serialize(fs, item);
             }
         }
-
+        /// <summary>
+        /// Получаем содержимое файла.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="FileName">Имя файла из которого надо получить данные.</param>
+        /// <returns></returns>
         protected T Load<T>(string FileName)
         {
             var formatter = new BinaryFormatter();
@@ -30,7 +40,8 @@ namespace CodeBlogFitness.BL.Controller
                 {
                     return items;
                 }
-                else return default(T);
+                //defult - значение по умолчанию для типа T.
+                else return default;
             }
         }
     }
