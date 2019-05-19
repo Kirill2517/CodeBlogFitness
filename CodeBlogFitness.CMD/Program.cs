@@ -14,10 +14,9 @@ namespace CodeBlogFitness.CMD
         static void Main(string[] args)
         {
             Console.WriteLine("Вас приветствует приложение CodeBlogFitness");
-            //Console.WriteLine(DateTime.Now);
-
+            
             Console.WriteLine("Введите имя пользователя");
-            var name = Console.ReadLine();
+            var name = Console.ReadLine(); name = ParseString(ref name, "имя пользователя");
 
             var userController = new UserController(name);
             var eatingController = new EatingController(userController.CurrentUser);
@@ -25,7 +24,7 @@ namespace CodeBlogFitness.CMD
             if (userController.IsNewUser)
             {
                 Console.WriteLine("Введите пол");
-                var gender = Console.ReadLine();
+                var gender = Console.ReadLine(); gender = ParseString(ref gender, "пол");
 
                 DateTime birthDate;
 
@@ -58,7 +57,7 @@ namespace CodeBlogFitness.CMD
         private static (Food Food, double Weight) EnterEating()
         {
             Console.Write("Введите название продукта: ");
-            var food = Console.ReadLine();
+            var food = Console.ReadLine();food =  ParseString(ref food, "название продукта");
             var calories = ParseDouble("калорийность");
             var prot = ParseDouble("белки");
             var fats = ParseDouble("жиры");
@@ -66,6 +65,23 @@ namespace CodeBlogFitness.CMD
             var weight = ParseDouble("вес порции");
 
             return (Food: new Food(food, calories, prot, fats, carbs), Weight: weight);
+        }
+
+        private static string ParseString(ref string namePole, string name)
+        {
+            while (true)
+            {
+                if (string.IsNullOrEmpty(namePole))
+                {
+                    Console.WriteLine($"Неверный формат поля {name}");
+                    namePole = Console.ReadLine();
+                }
+                else
+                {
+                    return namePole;
+                    
+                }
+            }
         }
 
         private static DateTime ParseDateTime()
@@ -78,7 +94,6 @@ namespace CodeBlogFitness.CMD
                     break;
                 else Console.WriteLine("неверный формат даты рождения");
             }
-
             return birthDate;
         }
 
