@@ -49,7 +49,6 @@ namespace CodeBlogFitness.BL.Controller
         public void SetNewUserDara(string genderName, DateTime birthDay, double weight = 1, double height = 1)
         {
             //Проверка
-
             CurrentUser.Gender = new Gender(genderName);
             CurrentUser.BirthDate = birthDay;
             CurrentUser.Weight = weight;

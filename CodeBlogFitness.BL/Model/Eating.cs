@@ -20,7 +20,7 @@ namespace CodeBlogFitness.BL.Model
         /// <summary>
         /// Словарь еды(ключа) и веса, которую принимал пользователь.
         /// </summary>
-        public Dictionary<Food, double> Foods { get; }
+        public Dictionary<Food, double> UserDiet { get; }
         /// <summary>
         /// Сам пользователь.
         /// </summary>
@@ -29,7 +29,7 @@ namespace CodeBlogFitness.BL.Model
         {
             User = user ?? throw new ArgumentNullException("Пользователь не может быть пустым", nameof(user));
             Moment = DateTime.UtcNow;
-            Foods = new Dictionary<Food, double>();
+            UserDiet = new Dictionary<Food, double>();
         }
         /// <summary>
         /// Добавляет продукт в список Foods, если такого продукта еще не было, иначе добавляет вес этому продукту.
@@ -38,11 +38,11 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="weight"></param>
         public void Add(Food food, double weight)
         {
-            var product = Foods.Keys.FirstOrDefault(f => f.Name.Equals(food.Name));
+            var product = UserDiet.Keys.FirstOrDefault(f => f.Name.Equals(food.Name));
 
             if (product == null)
-                Foods.Add(food, weight);
-            else Foods[product] += weight;
+                UserDiet.Add(food, weight);
+            else UserDiet[product] += weight;
         }
     }
 }

@@ -29,21 +29,17 @@ namespace CodeBlogFitness.BL.Controller
         /// <summary>
         /// Справочник продуктов питания.
         /// </summary>
-        public List<Food> Foods { get; }
+        public List<Food> FoodGuid { get; }
         /// <summary>
         /// То что съел пользователь.
         /// </summary>
         public Eating Eating { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
         public EatingController(User user)
         {
             this.user = user ?? throw new ArgumentNullException("Пользователь не может быть пустым", nameof(user));
 
-            Foods = GetAllFoods();
+            FoodGuid = GetAllFoods();
 
             Eating = GetEatings();
         }
@@ -55,12 +51,12 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="weight"></param>
         public void Add(Food food, double weight)
         {
-            var product = Foods.SingleOrDefault(f => f.Name == food.Name);
+            var product = FoodGuid.SingleOrDefault(f => f.Name == food.Name);
             
             if (product == null)
             {
                 //Добавляем продукт в справочник
-                Foods.Add(food);
+                FoodGuid.Add(food);
                 Eating.Add(food, weight);
                 Save();
             }
@@ -92,7 +88,7 @@ namespace CodeBlogFitness.BL.Controller
 
         private void Save()
         {
-            Save(FOOD_FILE_NAME, Foods);
+            Save(FOOD_FILE_NAME, FoodGuid);
             Save(EATINGS_FILE_NAME, Eating);
         }
     }

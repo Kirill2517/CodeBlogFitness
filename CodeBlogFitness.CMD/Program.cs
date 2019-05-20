@@ -1,21 +1,26 @@
 ﻿using CodeBlogFitness.BL.Controller;
 using CodeBlogFitness.BL.Model;
 using System;
+
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CodeBlogFitness.CMD
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            Console.WriteLine("Вас приветствует приложение CodeBlogFitness");
+            var culture = CultureInfo.CurrentCulture;
+            culture = CultureInfo.CreateSpecificCulture("ru-ru");
+            var resourceManager = new ResourceManager("CodeBlogFitness.CMD.Languages.Messege", typeof(Program).Assembly);
+
+            Console.WriteLine(resourceManager.GetString("Hello", culture));
             
-            Console.WriteLine("Введите имя пользователя");
+            Console.WriteLine(resourceManager.GetString("EnterName", culture));
             var name = Console.ReadLine(); name = ParseString(ref name, "имя пользователя");
 
             var userController = new UserController(name);
@@ -34,7 +39,6 @@ namespace CodeBlogFitness.CMD
 
                 var height = ParseDouble("рост");
 
-
                 userController.SetNewUserDara(gender, birthDate, weight, height);
             }
             Console.WriteLine(userController.CurrentUser);
@@ -47,12 +51,12 @@ namespace CodeBlogFitness.CMD
             {
                 var foods = EnterEating();
                 eatingController.Add(foods.Food, foods.Weight);
-                foreach (var item in eatingController.Eating.Foods)
+                foreach (var item in eatingController.Eating.UserDiet)
                 {
                     Console.WriteLine($"\t{item.Key} - {item.Value}");
                 }
                 Console.WriteLine();
-                foreach (var item in eatingController.Foods)
+                foreach (var item in eatingController.FoodGuid)
                 {
                     Console.WriteLine($"{item.Name} - {item.Calorie} - {item.Fats}");
                 }
